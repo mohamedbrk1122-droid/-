@@ -271,9 +271,10 @@ footer .logo{margin-bottom:24px}
     <form id="orderForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
       <div class="field"><label>الاسم الكامل</label><input name="name" required></div>
       <div class="field"><label>رقم الهاتف</label><input name="phone" type="tel" required></div>
-      <div class="field"><label>الولاية</label><select name="wilaya" id="wilaya" required></select></div>
-      <div class="field"><label>العنوان / البلدية</label><input name="address" required></div>
-      <input type="hidden" name="order" id="orderField">
+      <div class="field"><label>الولاية</label><select name="wilaya" id="wilaya" required onchange="fillCommunes()"></select></div>
+      <div class="field"><label>البلدية</label><div id="communeBox"><select name="commune" id="commune" required disabled><option value="">اختر الولاية أولا</option></select></div></div>
+      <div class="field"><label>العنوان</label><input name="address" placeholder="الحي، الشارع، رقم المنزل..." required></div>
+      <textarea name="order" id="orderField" hidden></textarea>
       <input type="hidden" name="total" id="totalField">
       <input type="hidden" name="_subject" value="طلب جديد من الموقع">
       <button class="btn" style="width:100%" type="submit">تأكيد الطلب (الدفع عند الإستلام)</button>
@@ -354,9 +355,11 @@ function renderCart(){
   document.getElementById("cartTotalTop").textContent = total + " د.ج";
   document.getElementById("cartCount").textContent = count;
   document.getElementById("totalField").value = total + " DA";
-  document.getElementById("orderField").value = cart.map(i=>{
-    const p = PRODUCTS.find(x=>x.id===i.id); return `${p.name} x${i.qty} = ${p.price*i.qty} DA`;
-  }).join(" | ");
+  document.getElementById("orderField").value = cart.map((i,n)=>{
+    const p = PRODUCTS.find(x=>x.id===i.id);
+    const imgUrl = p.img ? new URL(p.img, location.href).href : "بدون صورة";
+    return `${n+1}) ${p.name}\n   الكمية: ${i.qty} | السعر: ${p.price} DA | المجموع: ${p.price*i.qty} DA\n   صورة المنتج: ${imgUrl}`;
+  }).join("\n\n");
 }
 function openCart(){ document.getElementById("drawer").classList.add("open"); document.getElementById("overlay").classList.add("open"); }
 function closeCart(){ document.getElementById("drawer").classList.remove("open"); document.getElementById("overlay").classList.remove("open"); }
@@ -376,13 +379,25 @@ function handleForm(formId, msgId, onSuccess){
   });
 }
 handleForm("contactForm","contactMsg");
-handleForm("orderForm","orderMsg",()=>{ cart=[]; save(); });
+handleForm("orderForm","orderMsg",()=>{ cart=[]; save(); fillCommunes(); });
 
-/* ---------- تشغيل ---------- */
-document.getElementById("wilaya").innerHTML =
-  `<option value="">اختر الولاية</option>` + WILAYAS.map((w,i)=>`<option value="${i+1} - ${w}">${i+1} - ${w}</option>`).join("");
-render(); renderCart();
-</script>
-</body>
-  </html>
-  
+/* ---------- البلديات (مرتبة بالأحرف) ----------
+   تُحمّل من ملف بيانات خارجي. إذا فشل التحميل يتحول الحقل إلى خانة كتابة عادية.
+   يمكنك أيضا رفع ملفك الخاص باسم communes.json في نفس المجلد بصيغة:
+   [{"wilaya_code":"01","commune_name":"أدرار"}, ...] */
+const COMMUNES_URLS = [
+  "communes.json",
+  "https://cdn.jsdelivr.net/gh/othmanus/algeria-cities@master/json/algeria_cities.json"
+];
+let COMMUNES = {};
+
+async function loadCommunes(){
+  for(const url of COMMUNES_URLS){
+    try{
+      const r = await fetch(url); if(!r.ok) continue;
+      const d = await r.json();
+      const arr = Array.isArray(d) ? d : (d.data || d.communes || []);
+      const map = {};
+      arr.forEach(c=>{
+        const code = parseInt(c.wilaya_code ?? c.wilaya_id ?? c.wilaya);
+       
