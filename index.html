@@ -6,63 +6,78 @@
     <title>موقعي</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             background: #f5f5f5;
-            padding: 30px;
+            padding: 25px 15px;
+            margin: 0;
         }
 
         h1 {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .box {
             max-width: 500px;
-            margin: 30px auto;
+            margin: 25px auto;
             background: white;
-            padding: 25px;
-            border-radius: 18px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 22px;
+            border-radius: 16px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            text-align: right;
         }
 
         .box h2 {
-            margin-top: 0;
+            margin: 0 0 15px;
+            font-size: 20px;
+            text-align: right;
         }
 
         textarea {
             width: 100%;
-            height: 120px;
-            padding: 12px;
-            box-sizing: border-box;
-            border: 1px solid #ddd;
+            height: 100px;
+            padding: 14px;
+            border: 1px solid #cfd5e2;
             border-radius: 10px;
+            outline: none;
             resize: none;
             font-size: 16px;
-            margin-top: 10px;
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            transition: 0.2s;
+        }
+
+        textarea::placeholder {
+            color: #999;
+        }
+
+        textarea:focus {
+            border-color: #1683ff;
         }
 
         button {
-            margin-top: 15px;
-            padding: 12px 25px;
+            width: 100%;
+            margin-top: 12px;
+            padding: 13px;
             border: none;
             border-radius: 10px;
-            background: #007bff;
+            background: #1683ff;
             color: white;
             font-size: 16px;
             cursor: pointer;
         }
 
         button:hover {
-            opacity: 0.85;
+            opacity: 0.9;
         }
 
         .report button {
-            background: #e53935;
-        }
-
-        .report {
-            margin-top: 25px;
+            background: #1683ff;
         }
     </style>
 </head>
@@ -73,9 +88,10 @@
     <p>هذا أول موقع لي.</p>
 
 
-    <!-- خانة التعليق -->
+    <!-- التعليق -->
     <div class="box">
-        <h2>💬 أضف تعليقك</h2>
+
+        <h2>أضف تعليقك</h2>
 
         <form action="https://formspree.io/f/xbgggjnw" method="POST">
 
@@ -92,25 +108,27 @@
             <input
                 type="hidden"
                 name="_subject"
-                value="💬 تعليق جديد على موقعي">
+                value="تعليق جديد على موقعي">
 
             <button type="submit">
-                إرسال التعليق
+                إرسال
             </button>
 
         </form>
+
     </div>
 
 
-    <!-- خانة الإبلاغ عن خطأ -->
+    <!-- الإبلاغ عن خطأ -->
     <div class="box report">
-        <h2>🚨 الإبلاغ عن خطأ</h2>
+
+        <h2>الإبلاغ عن خطأ</h2>
 
         <form action="https://formspree.io/f/xbgggjnw" method="POST">
 
             <textarea
                 name="error_report"
-                placeholder="اشرح الخطأ الذي واجهته..."
+                placeholder="اكتب الخطأ الذي واجهته..."
                 required></textarea>
 
             <input
@@ -121,13 +139,14 @@
             <input
                 type="hidden"
                 name="_subject"
-                value="🚨 بلاغ جديد عن خطأ في الموقع">
+                value="بلاغ جديد عن خطأ في الموقع">
 
             <button type="submit">
-                إرسال البلاغ
+                إرسال
             </button>
 
         </form>
+
     </div>
 
 </body>
