@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>متجري | متجر إلكتروني</title>
+<style>
+:root{--primary:#111827;--accent:#c89b5d;--bg:#faf9f7;--card:#fff;--text:#171717;--muted:#777;--border:#e8e5df}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Tahoma,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select{font:inherit}.top{background:#111827;color:#fff;text-align:center;padding:9px;font-size:13px}
+header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20}
+.nav{max-width:1180px;margin:auto;padding:17px 20px;display:flex;align-items:center;gap:22px}
+.logo{font-size:25px;font-weight:800;letter-spacing:.5px;margin-left:auto}
+nav{display:flex;gap:20px}nav a{text-decoration:none;color:#222;font-size:14px}
+.actions{display:flex;gap:9px;align-items:center}.icon{border:1px solid var(--border);background:#fff;border-radius:10px;padding:9px 12px;cursor:pointer}
+.cartCount{background:var(--accent);color:#fff;border-radius:20px;padding:2px 7px;font-size:11px}
+.hero{max-width:1180px;margin:22px auto;padding:0 20px}.heroBox{min-height:330px;border-radius:22px;background:linear-gradient(120deg,#eee7dc,#fff);display:flex;align-items:center;justify-content:space-between;padding:45px;overflow:hidden}
+.heroText{max-width:510px}.hero h1{font-size:43px;margin:0 0 14px}.hero p{color:#666;line-height:1.8}.btn{border:0;border-radius:10px;padding:13px 20px;background:#111827;color:#fff;cursor:pointer}.btn.alt{background:#fff;color:#111;border:1px solid var(--border);margin-right:7px}
+.section{max-width:1180px;margin:45px auto;padding:0 20px}.sectionHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.section h2{margin:0;font-size:25px}.search{width:300px;border:1px solid var(--border);background:#fff;border-radius:10px;padding:12px 14px;outline:none}
+.categories{display:flex;gap:10px;overflow:auto;padding-bottom:5px}.cat{white-space:nowrap;border:1px solid var(--border);background:#fff;border-radius:30px;padding:10px 18px;cursor:pointer}.cat.active{background:#111827;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.product{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:.2s}.product:hover{transform:translateY(-3px);box-shadow:0 8px 25px #0000000b}.photo{height:270px;background:linear-gradient(135deg,#e9e2d8,#f8f6f2);display:flex;align-items:center;justify-content:center;color:#999;font-size:14px}.info{padding:15px}.name{font-weight:700;margin-bottom:8px}.price{font-weight:800}.old{text-decoration:line-through;color:#999;font-size:13px;margin-right:8px;font-weight:400}.add{width:100%;margin-top:12px;padding:10px;border:0;border-radius:9px;background:#111827;color:#fff;cursor:pointer}
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.service{background:#fff;border:1px solid var(--border);padding:24px;border-radius:16px}.service b{display:block;margin-bottom:8px}.service p{margin:0;color:#777;line-height:1.7;font-size:14px}
+footer{margin-top:55px;background:#111827;color:#fff}.footer{max-width:1180px;margin:auto;padding:42px 20px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:35px}.footer p{color:#cbd0d8;line-height:1.8}.footer a{display:block;color:#ddd;text-decoration:none;margin:9px 0;font-size:14px}
+.drawer{position:fixed;inset:0;background:#0005;z-index:50;display:none}.drawer.open{display:block}.panel{position:absolute;right:0;top:0;height:100%;width:min(430px,92vw);background:#fff;padding:22px;overflow:auto}.panelHead{display:flex;justify-content:space-between;align-items:center}.close{border:0;background:#f1f1f1;border-radius:8px;padding:8px 11px;cursor:pointer}.cartItem{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--border);padding:15px 0}.empty{text-align:center;color:#777;padding:50px 0}.total{font-size:19px;font-weight:800;margin:22px 0}
+@media(max-width:850px){nav{display:none}.grid{grid-template-columns:repeat(2,1fr)}.heroBox{padding:28px;min-height:300px}.hero h1{font-size:31px}.photo{height:230px}.services{grid-template-columns:1fr}.footer{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.nav{padding:13px 15px}.logo{font-size:20px}.hero{padding:0 12px}.heroBox{padding:25px;display:block}.hero h1{font-size:29px}.search{width:100%;margin-top:12px}.section{padding:0 12px}.grid{gap:10px}.product{border-radius:12px}.photo{height:190px}.info{padding:11px}.footer{grid-template-columns:1fr}.actions .icon:first-child{display:none}}
+</style>
+</head>
+<body>
+<div class="top">🚚 التوصيل متاح إلى جميع الولايات • الدفع عند الاستلام</div>
+<header><div class="nav">
+<div class="logo">متجري</div>
+<nav><a href="#home">الرئيسية</a><a href="#products">المنتجات</a><a href="#categories">الفئات</a><a href="#services">خدماتنا</a><a href="#contact">تواصل معنا</a></nav>
+<div class="actions"><button class="icon" onclick="focusSearch()">⌕</button><button class="icon" onclick="openCart()">🛒 <span class="cartCount" id="count">0</span></button></div>
+</div></header>
+
+<main id="home">
+<section class="hero"><div class="heroBox"><div class="heroText"><h1>اكتشف تشكيلتنا الجديدة</h1><p>منتجات مختارة بعناية، تصميم أنيق، وتجربة شراء سهلة من الهاتف أو الكمبيوتر.</p><button class="btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">تسوق الآن</button><button class="btn alt" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">استكشف الفئات</button></div></div></section>
+
+<section class="section" id="categories"><div class="sectionHead"><h2>الفئات</h2></div><div class="categories">
+<button class="cat active" onclick="filterCat('الكل',this)">الكل</button><button class="cat" onclick="filterCat('فساتين',this)">فساتين</button><button class="cat" onclick="filterCat('أطقم',this)">أطقم</button><button class="cat" onclick="filterCat('عبايات',this)">عبايات</button><button class="cat" onclick="filterCat('حقائب',this)">حقائب</button><button class="cat" onclick="filterCat('تخفيضات',this)">تخفيضات</button>
+</div></section>
+
+<section class="section" id="products"><div class="sectionHead"><h2>المنتجات</h2><input id="search" class="search" placeholder="ابحث عن منتج..." oninput="render()"></div><div class="grid" id="grid"></div></section>
+
+<section class="section" id="services"><div class="sectionHead"><h2>خدماتنا</h2></div><div class="services">
+<div class="service"><b>🚚 توصيل سريع</b><p>توصيل للزبائن مع إمكانية الدفع عند الاستلام.</p></div>
+<div class="service"><b>💬 خدمة الزبائن</b><p>تواصل معنا للاستفسار قبل وبعد الشراء.</p></div>
+<div class="service"><b>⭐ جودة مختارة</b><p>منتجات يتم اختيارها بعناية لتقديم تجربة أفضل.</p></div>
+</div></section>
+</main>
+
+<footer id="contact"><div class="footer"><div><h2>متجري</h2><p>متجر إلكتروني قابل للتعديل. أضف منتجاتك وأسعارك وصورك بسهولة.</p></div><div><h3>روابط</h3><a href="#home">الرئيسية</a><a href="#products">المنتجات</a><a href="#categories">الفئات</a></div><div><h3>تواصل معنا</h3><a href="#">فيسبوك</a><a href="#">إنستغرام</a><a href="#">واتساب</a></div></div></footer>
+
+<div class="drawer" id="drawer" onclick="if(event.target===this)closeCart()"><div class="panel"><div class="panelHead"><h2>سلة مشترياتي</h2><button class="close" onclick="closeCart()">✕</button></div><div id="cart"></div></div></div>
+
+<script>
+const products=[
+{name:"منتج تجريبي 1",price:3800,cat:"أطقم"},
+{name:"منتج تجريبي 2",price:4500,cat:"فساتين"},
+{name:"منتج تجريبي 3",price:3900,cat:"فساتين"},
+{name:"منتج تجريبي 4",price:3500,cat:"عبايات"},
+{name:"منتج تجريبي 5",price:4800,cat:"أطقم"},
+{name:"منتج تجريبي 6",price:2800,cat:"فساتين"},
+{name:"منتج تجريبي 7",price:3200,cat:"حقائب"},
+{name:"منتج تجريبي 8",price:4100,cat:"تخفيضات"}
+];
+let category="الكل",cart=[];
+function render(){
+ const q=document.getElementById("search").value.trim().toLowerCase();
+ const list=products.filter(p=>(category==="الكل"||p.cat===category)&&p.name.toLowerCase().includes(q));
+ document.getElementById("grid").innerHTML=list.map((p,i)=>`<article class="product"><div class="photo">صورة المنتج</div><div class="info"><div class="name">${p.name}</div><div class="price">${p.price.toLocaleString("ar-DZ")} دج</div><button class="add" onclick="addCart(${products.indexOf(p)})">أضف للسلة</button></div></article>`).join("")||'<p>لا توجد منتجات مطابقة.</p>';
+}
+function filterCat(c,el){category=c;document.querySelectorAll(".cat").forEach(x=>x.classList.remove("active"));el.classList.add("active");render()}
+function addCart(i){cart.push(products[i]);updateCart();openCart()}
+function updateCart(){
+ document.getElementById("count").textContent=cart.length;
+ const box=document.getElementById("cart");
+ if(!cart.length){box.innerHTML='<div class="empty">السلة فارغة</div>';return}
+ let total=cart.reduce((s,p)=>s+p.price,0);
+ box.innerHTML=cart.map((p,i)=>`<div class="cartItem"><span>${p.name}<br><small>${p.price.toLocaleString("ar-DZ")} دج</small></span><button class="close" onclick="removeCart(${i})">حذف</button></div>`).join("")+`<div class="total">المجموع: ${total.toLocaleString("ar-DZ")} دج</div><button class="btn" style="width:100%" onclick="alert('هنا نضيف لاحقاً نموذج تأكيد الطلب وبيانات الزبون.')">متابعة الطلب</button>`;
+}
+function removeCart(i){cart.splice(i,1);updateCart()}
+function openCart(){document.getElementById("drawer").classList.add("open");updateCart()}
+function closeCart(){document.getElementById("drawer").classList.remove("open")}
+function focusSearch(){document.getElementById("search").focus();document.getElementById("products").scrollIntoView({behavior:"smooth"})}
+render();updateCart();
+</script>
+</body></html>
