@@ -13,13 +13,21 @@
             padding: 30px;
         }
 
-        .comment-box {
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .box {
             max-width: 500px;
-            margin: 40px auto;
+            margin: 30px auto;
             background: white;
-            padding: 20px;
-            border-radius: 15px;
+            padding: 25px;
+            border-radius: 18px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .box h2 {
+            margin-top: 0;
         }
 
         textarea {
@@ -31,6 +39,7 @@
             border-radius: 10px;
             resize: none;
             font-size: 16px;
+            margin-top: 10px;
         }
 
         button {
@@ -45,7 +54,15 @@
         }
 
         button:hover {
-            background: #0056b3;
+            opacity: 0.85;
+        }
+
+        .report button {
+            background: #e53935;
+        }
+
+        .report {
+            margin-top: 25px;
         }
     </style>
 </head>
@@ -55,7 +72,9 @@
     <h1>مرحبا بكم في موقعي 🚀</h1>
     <p>هذا أول موقع لي.</p>
 
-    <div class="comment-box">
+
+    <!-- خانة التعليق -->
+    <div class="box">
         <h2>💬 أضف تعليقك</h2>
 
         <form action="https://formspree.io/f/xbgggjnw" method="POST">
@@ -67,12 +86,46 @@
 
             <input
                 type="hidden"
+                name="type"
+                value="تعليق جديد">
+
+            <input
+                type="hidden"
                 name="_subject"
                 value="💬 تعليق جديد على موقعي">
 
-            <br>
+            <button type="submit">
+                إرسال التعليق
+            </button>
 
-            <button type="submit">إرسال التعليق</button>
+        </form>
+    </div>
+
+
+    <!-- خانة الإبلاغ عن خطأ -->
+    <div class="box report">
+        <h2>🚨 الإبلاغ عن خطأ</h2>
+
+        <form action="https://formspree.io/f/xbgggjnw" method="POST">
+
+            <textarea
+                name="error_report"
+                placeholder="اشرح الخطأ الذي واجهته..."
+                required></textarea>
+
+            <input
+                type="hidden"
+                name="type"
+                value="بلاغ عن خطأ">
+
+            <input
+                type="hidden"
+                name="_subject"
+                value="🚨 بلاغ جديد عن خطأ في الموقع">
+
+            <button type="submit">
+                إرسال البلاغ
+            </button>
 
         </form>
     </div>
