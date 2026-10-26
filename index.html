@@ -13,21 +13,13 @@
             padding: 30px;
         }
 
-        h1 {
-            margin-bottom: 10px;
-        }
-
-        .box {
+        .comment-box {
             max-width: 500px;
-            margin: 30px auto;
+            margin: 40px auto;
             background: white;
-            padding: 25px;
-            border-radius: 18px;
+            padding: 20px;
+            border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .box h2 {
-            margin-top: 0;
         }
 
         textarea {
@@ -39,7 +31,6 @@
             border-radius: 10px;
             resize: none;
             font-size: 16px;
-            margin-top: 10px;
         }
 
         button {
@@ -54,15 +45,7 @@
         }
 
         button:hover {
-            opacity: 0.85;
-        }
-
-        .report button {
-            background: #e53935;
-        }
-
-        .report {
-            margin-top: 25px;
+            background: #0056b3;
         }
     </style>
 </head>
@@ -72,9 +55,7 @@
     <h1>مرحبا بكم في موقعي 🚀</h1>
     <p>هذا أول موقع لي.</p>
 
-
-    <!-- خانة التعليق -->
-    <div class="box">
+    <div class="comment-box">
         <h2>💬 أضف تعليقك</h2>
 
         <form action="https://formspree.io/f/xbgggjnw" method="POST">
@@ -86,46 +67,12 @@
 
             <input
                 type="hidden"
-                name="type"
-                value="تعليق جديد">
-
-            <input
-                type="hidden"
                 name="_subject"
                 value="💬 تعليق جديد على موقعي">
 
-            <button type="submit">
-                إرسال التعليق
-            </button>
+            <br>
 
-        </form>
-    </div>
-
-
-    <!-- خانة الإبلاغ عن خطأ -->
-    <div class="box report">
-        <h2>🚨 الإبلاغ عن خطأ</h2>
-
-        <form action="https://formspree.io/f/xbgggjnw" method="POST">
-
-            <textarea
-                name="error_report"
-                placeholder="اشرح الخطأ الذي واجهته..."
-                required></textarea>
-
-            <input
-                type="hidden"
-                name="type"
-                value="بلاغ عن خطأ">
-
-            <input
-                type="hidden"
-                name="_subject"
-                value="🚨 بلاغ جديد عن خطأ في الموقع">
-
-            <button type="submit">
-                إرسال البلاغ
-            </button>
+            <button type="submit">إرسال التعليق</button>
 
         </form>
     </div>
