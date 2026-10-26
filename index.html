@@ -400,4 +400,36 @@ async function loadCommunes(){
       const map = {};
       arr.forEach(c=>{
         const code = parseInt(c.wilaya_code ?? c.wilaya_id ?? c.wilaya);
-       
+       const name = (c.commune_name ?? c.commune_name_ar ?? c.name_ar ?? c.name ?? "").toString().trim();
+        if(!code || !name) return;
+        (map[code] = map[code] || new Set()).add(name);
+      });
+      const out = {};
+      Object.keys(map).forEach(k => out[k] = [...map[k]].sort((a,b)=>a.localeCompare(b,"ar")));
+      if(Object.keys(out).length){ COMMUNES = out; break; }
+    }catch(_){}
+  }
+  fillCommunes();
+}
+
+function fillCommunes(){
+  const box = document.getElementById("communeBox");
+  const code = parseInt(document.getElementById("wilaya").value);
+  if(!code){
+    box.innerHTML = `<select name="commune" id="commune" required disabled><option value="">اختر الولاية أولا</option></select>`;
+    return;
+  }
+  const list = COMMUNES[code];
+  box.innerHTML = list && list.length
+    ? `<select name="commune" id="commune" required><option value="">اختر البلدية</option>${list.map(c=>`<option value="${c}">${c}</option>`).join("")}</select>`
+    : `<input name="commune" id="commune" placeholder="اكتب اسم البلدية" required>`;
+}
+
+/* ---------- تشغيل ---------- */
+document.getElementById("wilaya").innerHTML =
+  `<option value="">اختر الولاية</option>` +
+  WILAYAS.map((w,i)=>`<option value="${String(i+1).padStart(2,"0")} - ${w}">${String(i+1).padStart(2,"0")} - ${w}</option>`).join("");
+render(); renderCart(); loadCommunes();
+</script>
+</body>
+</html>
